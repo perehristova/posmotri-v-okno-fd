@@ -70,8 +70,7 @@ ol {
 
 .content__details {
     grid-area: content__details;
-    max-width: 399px;
-    max-inline-size: 534px;
+    inline-size: 399px;
     align-self: start;
 }
 
@@ -87,8 +86,8 @@ ol {
 
 .content__list-container {
     position: relative;
-    max-height: 298px;
     overflow-y: auto;
+    max-height: 298px; 
 }
 
 /* Задайте размеры контейнеру .result__video-container и добавьте отступ снизу. */
@@ -112,6 +111,7 @@ ol {
     display: flex;
     flex-direction: column;
     gap: 30px;
+    min-height: 298px;
 }
 
 .content__video-card {
@@ -210,7 +210,7 @@ a {
 
 
 .search-form__fieldset:nth-child(2) {
-    padding-bottom: 3px;
+    padding-bottom: 4px;
 }
 
 /* Расставьте элементы внутри .search-form__label в линию. 
@@ -220,7 +220,7 @@ a {
     display: flex;
     width: fit-content;
     align-items: center;
-    gap: 2px;
+    gap: 4px;
 }
 
 /* Стилизуем текстовое поле ввода */
@@ -230,6 +230,8 @@ a {
     border: none;
     border-top: 1px solid white;
     border-bottom: 1px solid white;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
     color: white;
     font-weight: 400;
     font-size: 18px;
