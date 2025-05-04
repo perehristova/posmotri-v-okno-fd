@@ -1,21 +1,11 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html {
-  block-size: 100%;
-}
-
-.page {
-  inline-size: 1200px;
-  block-size: 100%;
-  margin: auto;
-  color: #fff;
-  font-family: 'Fira Sans Condensed', sans-serif;
-  font-size: 18px;
-  background-color: #1b1919;
+    block-size: 100%;
 }
 
 h1,
@@ -28,24 +18,344 @@ ol,
 li,
 blockquote,
 fieldset {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 ul,
 ol {
-  list-style: none;
+    list-style: none;
 }
 
 /* Кастомный скроллбар */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
+    width: 4px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: rgb(217 217 217 / 10%);
+    background: rgb(217 217 217 / 10%);
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #D9D9D9;
+    background-color: #D9D9D9;
+}
+
+/* Flex для .page */
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    color: #fff;
+    font-family: 'Fira Sans Condensed', sans-serif;
+    font-size: 18px;
+    background-color: #1b1919;
+    inline-size: 1200px;
+    block-size: 100%;
+}
+
+/* Grid для .content и grid-area для всех элементов внутри(result content__details) */
+.content {
+    display: grid;
+    grid-template-areas: 'result content__details';
+    place-items: end;
+    gap: 30px;
+    max-width: 1140px;
+}
+
+/* grid-area */
+.result {
+    grid-area: result;
+}
+
+.content__details {
+    grid-area: content__details;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 5px;
+}
+
+/* Расположить элементы .search-form в строку, 
+пропорционально распределить между ними свободное пространство
+и прижать их к началу контейнера. */
+.search-form {
+    display: flex;
+    place-items: end;
+    justify-content: space-between;
+    padding-bottom: 3px;
+}
+
+.content__list-container {
+    position: relative;
+    max-height: 298px;
+    overflow-y: auto;
+}
+
+/* Задайте размеры контейнеру .result__video-container и добавьте отступ снизу. */
+.result__video-container {
+    position: relative;
+    width: 711px;
+    height: 386px;
+    margin-bottom: 16px;
+}
+
+.result__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Создайте вертикальные отступы между элементами .content__list-item. 
+Используйте свойство gap. */
+.content__list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-bottom: 30px;
+}
+
+.content__video-card {
+    display: flex;
+}
+
+/* Задайте размеры .content__video-card-thumbnail и расположите в них изображение так, 
+чтобы оно закрывало весь элемент и было выровнено по центру. 
+Используйте object-fit и object-position. */
+.content__video-card-thumbnail {
+    width: 194px;
+    height: 103px;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Сделайте так, 
+чтобы .content__video-card-description-container занимал всё доступное пространство. 
+Вам поможет свойство flex-grow. */
+.content__video-card-description-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 6px;
+    max-width: 196px;
+}
+
+.title {
+    margin-bottom: 25px;
+    font-family: Oswald, sans-serif;
+    font-weight: 700;
+    font-size: 75px;
+    line-height: 94%;
+    text-transform: uppercase;
+}
+
+.content__accent {
+    color: #545050;
+}
+
+a {
+    text-decoration: none;
+}
+
+.content__video-card {
+    display: flex;
+}
+
+.content__video-card-title {
+    overflow: hidden;
+    color: #fff;
+    font-family: Oswald, sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 100%;
+    text-transform: uppercase;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.content__video-card-description {
+    display: -webkit-box;
+    overflow: hidden;
+    color: #fff;
+    font-weight: 400;
+    line-height: 16.2px;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.search-form__fieldset-title {
+    padding-top: 2px;
+    padding-bottom: 6px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 100%;
+}
+
+/* Для работы с элементами формы понадобится паттерн .visually-hidden. 
+С его помощью вам нужно скрыть лишние лейблы и браузерные чекбоксы, 
+чтобы потом нарисовать поверх них свои. */
+.visually-hidden {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    inline-size: 1px;
+    block-size: 1px;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+/* Сбросьте border у fieldset. */
+.search-form__fieldset {
+    border: none;
+}
+
+/* Расставьте элементы внутри .search-form__label в линию. 
+Примените свойство display: flex;. 
+Также вам пригодится правило width: fit-content;. */
+.search-form__label {
+    display: flex;
+    width: fit-content;
+}
+
+/* Стилизуем текстовое поле ввода */
+
+.search-form__textfield {
+    width: 225px;
+    border: none;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    padding-top: 3px;
+    color: white;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 100%;
+    background-color: transparent;
+    appearance: none;
+}
+
+.search-form__textfield::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Fira Sans Condensed', sans-serif;
+    appearance: none;
+}
+
+/* Стилизуем чекбокс */
+
+.search-form__pseudo-checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 19px;
+    height: 19px;
+    border: 1px solid #FFFFFF;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+/* Расположите чекбоксы в линию */
+.search-form__checkbox-list {
+    display: flex;
+    gap: 20px;
+}
+
+input[type='checkbox']:checked+.search-form__pseudo-checkbox::after {
+    content: "";
+    width: 17px;
+    height: 17px;
+    background-color: #fff;
+}
+
+.search-form__label-text {
+    padding-bottom: 5px;
+    padding-left: 2px;
+}
+
+.search-form__label:hover .search-form__label-text {
+    text-decoration: underline;
+}
+
+input[type='checkbox']:focus+span {
+    outline: none;
+}
+
+.search-form__label:focus {
+    outline: none;
+}
+
+.search-form__label:has(:focus-visible) {
+    outline: 1px solid white;
+    outline-offset: 1px;
+}
+
+/* Стилизуем кнопки и их состояния */
+
+.button {
+    border: 1px solid white;
+    color: white;
+    font-family: 'Fira Sans Condensed', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 100%;
+    text-align: center;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.search-form__submit-button {
+    width: 194px;
+    height: 34px;
+}
+
+.more-button {
+    width: 391px;
+    height: 34px;
+    font-weight: 700;
+}
+
+.button:hover {
+    text-decoration: underline;
+}
+
+.button:active {
+    background-color: rgba(84, 80, 80, 0.7);
+}
+
+.button:focus {
+    outline: none;
+}
+
+.button:focus-visible {
+    outline: 1px solid white;
+    outline-offset: 1px;
+}
+
+/* Состояния карточек */
+
+.content__card-link {
+    display: block;
+    cursor: pointer;
+
+}
+
+.content__card-link:hover {
+    text-decoration: underline;
+    text-decoration-color: white;
+}
+
+.content__card-link:active {
+    background-color: #545050;
+}
+
+.content__card-link:focus {
+    outline: none;
+}
+
+.content__card-link:focus-visible {
+    outline: 1px solid white;
+    outline-offset: -1px;
+}
+
+.content__list-item {
+    padding-right: 3px;
+    padding-left: 3px;
+
 }
